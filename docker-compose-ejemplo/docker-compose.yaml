@@ -1,0 +1,23 @@
+services:
+  database:
+    image: fouya/mis-pelis-db:latest
+    container_name: network_database
+    networks:
+    - mi_red_bridge
+    # ports:
+    # - "5432:5432"
+  app:
+    image: fouya/network-app-image:latest
+    container_name: videogames-docker-app
+    depends_on:
+    - database
+    networks:
+    - mi_red_bridge
+    ports:
+    - "9999:8888"
+    # environment:
+    # - SPRING_DATASOURCE_URL=jdbc:postgresql://videogames-docker-database:5432/videogames
+    # Agrega otras variables si fueran necesarias, como usuario y contraseña 
+networks:
+  mi_red_bridge:
+    driver: bridge
